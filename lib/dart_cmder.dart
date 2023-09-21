@@ -1,3 +1,5 @@
 library dart_cmder;
 
-export 'src/cmder.dart';
+export 'src/interface/interface.dart';
+export 'src/logo.dart';
+export 'src/tools/tools.dart';

@@ -1,22 +1,23 @@
 name: dart_cmder
 description: A starting point for Dart libraries or applications.
-version: 0.0.1
-publish_to: 'none'
+version: 0.0.1-prerelease
+
+homepage: https://github.com/nikosportolos/dart_cmder
+repository: https://github.com/nikosportolos/dart_cmder
+documentation: https://github.com/nikosportolos/dart_cmder
+issue_tracker: https://github.com/nikosportolos/dart_cmder/issues
 
 environment:
   sdk: '>=3.1.0 < 4.0.0'
 
 dependencies:
-  ansix:
-    git:
-      url: https://github.com/nikosportolos/ansix
+  ansix: ^0.2.2
   args: ^2.4.2
   meta: ^1.10.0
-  trace:
-    git:
-      url: https://github.com/nikosportolos/trace
-      ref: develop
+  path: ^1.8.3
+  trace: ^0.0.2-prerelease
 
 dev_dependencies:
   lints: ^2.1.1
+  mocktail: ^1.0.0
   test: ^1.24.6

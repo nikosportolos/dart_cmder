@@ -1,0 +1,11 @@
+{
+  "@@locale": "el",
+  "app_name": "Example App",
+  "@app_name": {
+    "description": "Application name"
+  },
+  "btnCancel": "Cancel",
+  "btnOk": "Ok",
+  "btnSave": "Save",
+  "demoMessage": "This is a demo message"
+}

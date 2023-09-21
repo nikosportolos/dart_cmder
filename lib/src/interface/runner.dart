@@ -2,56 +2,55 @@ import 'dart:io';
 
 import 'package:ansix/ansix.dart';
 import 'package:args/command_runner.dart';
-import 'package:dart_cmder/src/command.dart';
+import 'package:dart_cmder/src/interface/command.dart';
+import 'package:dart_cmder/src/logo.dart';
 import 'package:trace/trace.dart';
 
-class BaseRunner extends CommandRunner<void> {
+/// An extended [CommandRunner] interface that provides
+/// convenient methods and safe execution.
+abstract class BaseRunner extends CommandRunner<void> {
   BaseRunner({
     required final String executableName,
     required final String description,
     required this.$commands,
     super.usageLineLength,
     super.suggestionDistanceLimit,
-    final IOSink? sink,
+    this.sink,
+    this.loggerTheme,
+    this.logo,
+    this.showLogo = true,
   }) : super(executableName, description) {
-    Trace.registerLogger(
-      ConsoleLogger(ioSink: sink),
-    );
-    initialize();
     $commands.forEach(addCommand);
   }
 
+  final IOSink? sink;
+  final Logo? logo;
+  final bool showLogo;
   final List<BaseCommand> $commands;
+  final LoggerTheme? loggerTheme;
 
   @override
   String get usage => super.usage.replaceFirst('$description\n\n', '');
 
-  void initialize() {
-    // ignore: avoid_print
-    print(
-      AnsiGrid.list(
-        <AnsiText>[
-          AnsiText(
+  void printLogo() {
+    if (!showLogo) {
+      return;
+    }
+
+    Trace.print(logo?.formatted ??
+        Logo(
+          title: AnsiText(
             executableName,
-            alignment: AnsiTextAlignment.center,
             style: const AnsiTextStyle(bold: true),
+            padding: AnsiPadding.horizontal(2),
+            alignment: AnsiTextAlignment.center,
           ),
-          AnsiText(
+          subtitle: AnsiText(
             description,
-            padding: AnsiPadding.horizontal(4),
             style: const AnsiTextStyle(italic: true),
             alignment: AnsiTextAlignment.center,
+            padding: AnsiPadding.horizontal(2),
           ),
-        ],
-        theme: const AnsiGridTheme(
-          overrideTheme: true,
-          border: AnsiBorder(
-            style: AnsiBorderStyle.rounded,
-            type: AnsiBorderType.outside,
-            color: AnsiColor.white,
-          ),
-        ),
-      ),
-    );
+        ).formatted);
   }
 }

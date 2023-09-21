@@ -1,0 +1,26 @@
+name: Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ${{github.workflow}}-${{github.ref}}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    defaults:
+      run:
+        working-directory: .
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: actions/checkout@v4.1.0
+      - uses: nikosportolos/dart_package@v0.1.2
+        with:
+          line_length: 80
+          coverage: ${{ inputs.coverage }}
+          codecov: true
+          codecov_token: ${{ secrets.codecov_token }}

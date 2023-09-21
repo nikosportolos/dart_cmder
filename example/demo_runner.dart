@@ -1,21 +1,37 @@
 // ignore_for_file: avoid_print
 
 import 'package:dart_cmder/dart_cmder.dart';
-import 'package:dart_cmder/src/extensions.dart';
-import 'package:dart_cmder/src/runner.dart';
+import 'package:trace/trace.dart';
+
+enum Option {
+  option1,
+  option2,
+  option3;
+
+  @override
+  String toString() => name;
+}
 
 class DemoRunner extends BaseRunner {
-  DemoRunner()
-      : super(
+  DemoRunner({
+    final List<BaseCommand> commands = const <BaseCommand>[],
+  }) : super(
           executableName: 'demo',
-          description: 'This is a demo CLI app written in Dart using dart_cmder.',
+          description:
+              'This is a demo CLI app written in Dart using dart_cmder.',
           $commands: <BaseCommand>[
             DemoCommand(),
+            ...commands,
           ],
         );
 }
 
 class DemoCommand extends BaseCommand {
+  DemoCommand({
+    super.arguments = const <BaseArgument<void>>[],
+    super.subCommands = const <BaseCommand>[],
+  });
+
   @override
   String get name => 'cmd';
 
@@ -23,38 +39,39 @@ class DemoCommand extends BaseCommand {
   String get description => 'This is a demo command';
 
   @override
-  List<BaseArgument> get arguments => <BaseArgument>[enabledArg, inputArg, modeArg, ...BaseCommand.cmderArguments];
+  List<BaseArgument<void>> get arguments =>
+      <BaseArgument<void>>[enabledArg, inputArg, modeArg];
 
   static const FlagArgument enabledArg = FlagArgument(
     name: 'enabled',
     abbr: 'e',
     help: 'This is a demo flag argument',
   );
-  static const OptionArgument inputArg = OptionArgument(
+  static const OptionArgument<String> inputArg = OptionArgument<String>(
     name: 'input',
     abbr: 'i',
     help: 'This is a demo option argument',
     defaultsTo: 'default-input-value',
   );
-  static const MultiOptionArgument modeArg = MultiOptionArgument(
-    name: 'mode',
-    abbr: 'm',
-    help: 'This is a demo multi-option argument',
-    allowedValues: <String>['debug', 'release'],
-  );
+  static final MultiOptionArgument<Option> modeArg =
+      MultiOptionArgument<Option>(
+          name: 'mode',
+          abbr: 'm',
+          help: 'This is a demo multi-option argument',
+          allowedValues: Option.values,
+          valueBuilder: (Object? value) {
+            return Option.values.where((Option m) => m.name == value).first;
+          });
 
-  String get mode => argResults.getValue<String>(modeArg);
+  List<Option> get modes => modeArg.parse(argResults) as List<Option>;
 
-  bool get enabled => argResults.getValue<bool>(enabledArg);
+  bool get enabled => enabledArg.parse(argResults);
 
   @override
   Future<void> execute() async {
-    print('Running on [$mode] mode from [$path]');
-    print('enabled = [$enabled]');
-    print('logToFile = [$logToFile]');
-    print('logLevel = [$logLevel]');
+    printArguments();
 
-    print('\nLorem ipsum dolor sit amet, consectetur adipiscing elit, \n'
+    Trace.info('Lorem ipsum dolor sit amet, consectetur adipiscing elit, \n'
         'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
   }
 }
