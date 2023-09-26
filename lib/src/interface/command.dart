@@ -91,6 +91,10 @@ abstract class BaseCommand extends Command<void> {
           level: logLevel,
           theme: cliRunner.loggerTheme,
           ioSink: cliRunner.sink,
+          filter: DefaultLogFilter(
+            logLevel,
+            debugOnly: false,
+          ),
         ),
         if (logsDirectory != null)
           FileLogger(
