@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:ansix/ansix.dart';
 import 'package:path/path.dart';
 
 /// The Finder tool is an integral component of this package,
@@ -18,12 +17,13 @@ class Finder {
   static const String pubspecYaml = 'pubspec.yaml';
 
   static Directory findDirectoryFromPath(final String? path) {
-    return path.isNullOrEmpty || path == '.' //
-        ? Directory.current
-        : path!.startsWith('./')
-            ? Directory(
-                join(Directory.current.path, normalize(path.substring(2))))
-            : Directory(normalize(path));
+    if (path == null || path.trim().isEmpty) {
+      return Directory.current;
+    }
+
+    return Directory(
+      normalize(join(current, path)),
+    );
   }
 
   static Iterable<File> _findFiles({
