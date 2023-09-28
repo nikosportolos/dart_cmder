@@ -1,9 +1,6 @@
 import 'package:args/args.dart';
 
-part 'flag.dart';
-part 'multi_option.dart';
-part 'option.dart';
-
+/// Base argument interface
 abstract class BaseArgument<T> {
   const BaseArgument({
     required this.name,

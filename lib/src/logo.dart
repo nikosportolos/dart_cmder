@@ -31,4 +31,7 @@ class Logo {
   final AnsiGridTheme? theme;
 
   late final String formatted;
+
+  @override
+  String toString() => formatted;
 }

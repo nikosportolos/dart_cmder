@@ -1,25 +1,22 @@
-import 'package:args/args.dart';
-import 'package:dart_cmder/src/interface/arguments/argument.dart';
+import 'dart:io';
 
-/// Defines an option that takes a value.
-class OptionArgument<T> extends BaseArgument<T> {
-  const OptionArgument({
+import 'package:ansix/ansix.dart';
+import 'package:args/args.dart';
+import 'package:dart_cmder/dart_cmder.dart';
+
+class DirectoryArgument extends OptionArgument<Directory> {
+  const DirectoryArgument({
     required super.name,
     super.abbr,
     super.help,
     super.allowedValues,
-    this.defaultsTo,
-    this.valueHelp,
-    this.mandatory = false,
+    super.defaultsTo,
+    super.valueHelp,
+    super.mandatory = false,
     super.hide = false,
-    this.allowedHelp,
+    super.allowedHelp,
     super.valueBuilder,
   });
-
-  final T? defaultsTo;
-  final String? valueHelp;
-  final bool mandatory;
-  final Map<String, String>? allowedHelp;
 
   /// This adds an [Option](https://pub.dev/documentation/args/latest/args/Option-class.html)
   /// with the given properties to the options that have been defined for this parser.
@@ -29,9 +26,11 @@ class OptionArgument<T> extends BaseArgument<T> {
       name,
       abbr: abbr,
       aliases: aliases,
-      allowed: _getAllowedValues(),
+      allowed: allowedValues
+          ?.map((Directory directory) => directory.absolute.path)
+          .toList(growable: false),
       allowedHelp: allowedHelp,
-      defaultsTo: defaultsTo?.toString(),
+      defaultsTo: defaultsTo?.absolute.path.toString(),
       help: help,
       hide: hide,
       mandatory: mandatory,
@@ -39,19 +38,9 @@ class OptionArgument<T> extends BaseArgument<T> {
     );
   }
 
-  List<String>? _getAllowedValues() {
-    if (allowedValues == null || allowedValues!.isEmpty) {
-      return null;
-    }
-
-    return allowedValues!.map((T e) {
-      return e.toString();
-    }).toList(growable: false);
-  }
-
-  /// This method is used to parse the given [ArgResults] into a [T?].
+  /// This method is used to parse the given [ArgResults] into a [Directory].
   @override
-  T? parse(ArgResults? results) {
+  Directory? parse(ArgResults? results) {
     if (results == null) {
       return defaultsTo;
     }
@@ -61,7 +50,12 @@ class OptionArgument<T> extends BaseArgument<T> {
         return valueBuilder!.call(results[name]);
       }
 
-      return results[name] ?? defaultsTo;
+      final String? value = results[name];
+      if (value.isNullOrEmpty) {
+        return defaultsTo;
+      }
+
+      return Directory(value!);
     } catch (_) {
       return defaultsTo;
     }

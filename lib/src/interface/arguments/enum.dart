@@ -1,25 +1,20 @@
 import 'package:args/args.dart';
-import 'package:dart_cmder/src/interface/arguments/argument.dart';
+import 'package:dart_cmder/dart_cmder.dart';
+import 'package:dart_cmder/src/tools/enums.dart';
 
-/// Defines an option that takes a value.
-class OptionArgument<T> extends BaseArgument<T> {
-  const OptionArgument({
+class EnumArgument<T> extends OptionArgument<T> {
+  const EnumArgument({
     required super.name,
     super.abbr,
     super.help,
     super.allowedValues,
-    this.defaultsTo,
-    this.valueHelp,
-    this.mandatory = false,
+    super.defaultsTo,
+    super.valueHelp,
+    super.mandatory = false,
     super.hide = false,
-    this.allowedHelp,
+    super.allowedHelp,
     super.valueBuilder,
   });
-
-  final T? defaultsTo;
-  final String? valueHelp;
-  final bool mandatory;
-  final Map<String, String>? allowedHelp;
 
   /// This adds an [Option](https://pub.dev/documentation/args/latest/args/Option-class.html)
   /// with the given properties to the options that have been defined for this parser.
@@ -29,7 +24,9 @@ class OptionArgument<T> extends BaseArgument<T> {
       name,
       abbr: abbr,
       aliases: aliases,
-      allowed: _getAllowedValues(),
+      allowed: allowedValues == null
+          ? defaultsTo.getEnumValueStrings<T>()
+          : allowedValues.getEnumValueStrings<T>(),
       allowedHelp: allowedHelp,
       defaultsTo: defaultsTo?.toString(),
       help: help,
@@ -37,16 +34,6 @@ class OptionArgument<T> extends BaseArgument<T> {
       mandatory: mandatory,
       valueHelp: valueHelp,
     );
-  }
-
-  List<String>? _getAllowedValues() {
-    if (allowedValues == null || allowedValues!.isEmpty) {
-      return null;
-    }
-
-    return allowedValues!.map((T e) {
-      return e.toString();
-    }).toList(growable: false);
   }
 
   /// This method is used to parse the given [ArgResults] into a [T?].
@@ -61,7 +48,8 @@ class OptionArgument<T> extends BaseArgument<T> {
         return valueBuilder!.call(results[name]);
       }
 
-      return results[name] ?? defaultsTo;
+      final Object? value = results[name];
+      return value.toNullableEnum<T?>(defaultsTo);
     } catch (_) {
       return defaultsTo;
     }

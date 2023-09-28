@@ -17,8 +17,7 @@ class DemoRunner extends BaseRunner {
     final List<BaseCommand> commands = const <BaseCommand>[],
   }) : super(
           executableName: 'demo',
-          description:
-              'This is a demo CLI app written in Dart using dart_cmder.',
+          description: 'This is a demo CLI app written in Dart using dart_cmder.',
           $commands: <BaseCommand>[
             DemoCommand(),
             ...commands,
@@ -39,29 +38,27 @@ class DemoCommand extends BaseCommand {
   String get description => 'This is a demo command';
 
   @override
-  List<BaseArgument<void>> get arguments =>
-      <BaseArgument<void>>[enabledArg, inputArg, modeArg];
+  List<BaseArgument<void>> get arguments => <BaseArgument<void>>[enabledArg, inputArg, modeArg];
 
   static const FlagArgument enabledArg = FlagArgument(
     name: 'enabled',
     abbr: 'e',
     help: 'This is a demo flag argument',
   );
+
   static const OptionArgument<String> inputArg = OptionArgument<String>(
     name: 'input',
     abbr: 'i',
     help: 'This is a demo option argument',
     defaultsTo: 'default-input-value',
   );
-  static final MultiOptionArgument<Option> modeArg =
-      MultiOptionArgument<Option>(
-          name: 'mode',
-          abbr: 'm',
-          help: 'This is a demo multi-option argument',
-          allowedValues: Option.values,
-          valueBuilder: (Object? value) {
-            return Option.values.where((Option m) => m.name == value).first;
-          });
+
+  static const MultiOptionArgument<Option> modeArg = MultiOptionArgument<Option>(
+    name: 'mode',
+    abbr: 'm',
+    help: 'This is a demo multi-option argument',
+    defaultsTo: <Option>[Option.option2],
+  );
 
   List<Option> get modes => modeArg.parse(argResults) as List<Option>;
 

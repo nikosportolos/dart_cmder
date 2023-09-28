@@ -1,10 +1,10 @@
 import 'dart:developer';
-import 'dart:io' show exit;
+import 'dart:io' show Directory, exit;
 
 import 'package:ansix/ansix.dart';
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
-import 'package:dart_cmder/src/interface/arguments/argument.dart';
+import 'package:dart_cmder/src/interface/arguments/arguments.dart';
 import 'package:dart_cmder/src/interface/runner.dart';
 import 'package:meta/meta.dart';
 import 'package:trace/trace.dart';
@@ -14,6 +14,7 @@ abstract class BaseCommand extends Command<void> {
   BaseCommand({
     this.arguments = const <BaseArgument<void>>[],
     final List<BaseCommand> subCommands = const <BaseCommand>[],
+    this.filter,
   }) {
     _stopwatch.start();
 
@@ -23,15 +24,13 @@ abstract class BaseCommand extends Command<void> {
     }
 
     // Add and parse arguments
-    for (BaseArgument<void> arg in <BaseArgument<void>>[
-      ...arguments,
-      ...cmderArguments
-    ]) {
+    for (BaseArgument<void> arg in <BaseArgument<void>>[...arguments, ...cmderArguments]) {
       arg.add(argParser);
     }
   }
 
   final List<BaseArgument<void>> arguments;
+  late final LogFilter? filter;
 
   final Stopwatch _stopwatch = Stopwatch();
 
@@ -44,33 +43,27 @@ abstract class BaseCommand extends Command<void> {
   );
 
   /// Log level argument.
-  static final BaseArgument<LogLevel> logLevelArg = OptionArgument<LogLevel>(
+  static const BaseArgument<LogLevel> logLevelArg = EnumArgument<LogLevel>(
     name: 'level',
     abbr: 'l',
     help: 'Define the level that will be used to filter log messages.',
     defaultsTo: LogLevel.info,
     allowedValues: LogLevel.values,
-    valueBuilder: (Object? value) {
-      return LogLevel.values
-              .where((LogLevel l) => l.name == value)
-              .firstOrNull ??
-          LogLevel.verbose;
-    },
   );
 
   /// Log to file argument.
   ///
   /// If this argument flag is not null, then a [FileLogger] will be used
   /// to log messages into the specified directory.
-  static const BaseArgument<String?> logDirectoryArg = OptionArgument<String?>(
+  static const BaseArgument<Directory> logDirectoryArg = DirectoryArgument(
     name: 'logdir',
     abbr: 'd',
-    help:
-        'If not null, then messages will be logged into the specified directory.',
+    help: 'If not null, then messages will be '
+        'logged into the specified directory.',
     defaultsTo: null,
   );
 
-  static final List<BaseArgument<void>> cmderArguments = <BaseArgument<void>>[
+  static const List<BaseArgument<void>> cmderArguments = <BaseArgument<void>>[
     pathArg,
     logLevelArg,
     logDirectoryArg,
@@ -80,10 +73,11 @@ abstract class BaseCommand extends Command<void> {
 
   LogLevel get logLevel => logLevelArg.parse(argResults);
 
-  String? get logsDirectory => logDirectoryArg.parse(argResults);
+  Directory? get logsDirectory => logDirectoryArg.parse(argResults);
 
   Future<void> init() async {
     final BaseRunner cliRunner = runner as BaseRunner;
+    final LogFilter logFilter = filter ?? DefaultLogFilter(logLevel, debugOnly: false);
 
     Trace.registerLoggers(
       <Logger>[
@@ -91,16 +85,14 @@ abstract class BaseCommand extends Command<void> {
           level: logLevel,
           theme: cliRunner.loggerTheme,
           ioSink: cliRunner.sink,
-          filter: DefaultLogFilter(
-            logLevel,
-            debugOnly: false,
-          ),
+          filter: logFilter,
         ),
         if (logsDirectory != null)
           FileLogger(
             level: logLevel,
             theme: cliRunner.loggerTheme,
-            path: logsDirectory,
+            path: logsDirectory?.path,
+            filter: logFilter,
           ),
       ],
     );
@@ -108,9 +100,9 @@ abstract class BaseCommand extends Command<void> {
     cliRunner.printLogo();
 
     Trace.printListItem('Running command: ${name.bold()}');
-    argParser.options.entries.map((MapEntry<String, Option> e) {
-      Trace.verbose(e.value.name);
-    });
+    for (final MapEntry<String, Option> options in argParser.options.entries) {
+      Trace.verbose(options.value.name);
+    }
   }
 
   Future<void> execute();
@@ -131,17 +123,13 @@ abstract class BaseCommand extends Command<void> {
       await exitWithCode(0);
     } catch (e, st) {
       await exitWithError(e, st);
-      return;
     }
   }
 
   void printArguments() {
     final AnsiGrid grid = AnsiGrid.fromRows(
       <List<Object?>>[
-        for (final BaseArgument<void> arg in <BaseArgument<void>>[
-          ...arguments,
-          ...cmderArguments
-        ])
+        for (final BaseArgument<void> arg in <BaseArgument<void>>[...arguments, ...cmderArguments])
           <Object?>[
             '  - ',
             AnsiText(
@@ -188,13 +176,12 @@ abstract class BaseCommand extends Command<void> {
     _stopwatch.stop();
 
     if (hasErrors) {
-      Trace.error('${runner?.executableName.bold()} terminated with error:',
-          error, stacktrace);
+      Trace.error('${runner?.executableName.bold()} terminated with error:', error, stacktrace);
       Trace.error('❌ finished with errors in ${_stopwatch.elapsed}');
       await _exit(code ?? 1);
     }
 
-    Trace.debug('✔ ${invocation.bold()} finished in ${_stopwatch.elapsed}');
+    Trace.info('✔ ${invocation.bold()} finished in ${_stopwatch.elapsed}');
     await _exit(code ?? 0);
   }
 

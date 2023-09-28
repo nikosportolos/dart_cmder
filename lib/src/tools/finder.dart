@@ -34,9 +34,8 @@ class Finder {
     return Directory(path)
         .listSync(recursive: recursive ?? true, followLinks: true)
         .whereType<File>()
-        .where((File file) => matchingPattern == null
-            ? true
-            : matchingPattern.hasMatch(basename(file.path)));
+        .where((File file) =>
+            matchingPattern == null ? true : matchingPattern.hasMatch(basename(file.path)));
   }
 
   static List<FileSystemEntity> findFiles({

@@ -1,4 +1,5 @@
-part of 'argument.dart';
+import 'package:args/args.dart';
+import 'package:dart_cmder/src/interface/arguments/argument.dart';
 
 /// Defines a boolean flag.
 ///

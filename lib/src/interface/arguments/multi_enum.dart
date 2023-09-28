@@ -1,26 +1,22 @@
 import 'package:args/args.dart';
-import 'package:dart_cmder/src/interface/arguments/argument.dart';
+import 'package:dart_cmder/src/interface/arguments/multi_option.dart';
+import 'package:dart_cmder/src/tools/enums.dart';
 
 /// Defines an option that takes multiple values.
-class MultiOptionArgument<T> extends BaseArgument<T> {
-  const MultiOptionArgument({
+class MultiEnumArgument<T> extends MultiOptionArgument<T> {
+  const MultiEnumArgument({
     required super.name,
     super.abbr,
     super.help,
     super.allowedValues,
     super.hide = false,
     super.aliases,
-    this.defaultsTo,
-    this.splitCommas = true,
-    this.valueHelp,
-    this.allowedHelp,
+    super.defaultsTo,
+    super.splitCommas = true,
+    super.valueHelp,
+    super.allowedHelp,
     super.valueBuilder,
   });
-
-  final bool splitCommas;
-  final String? valueHelp;
-  final Map<String, String>? allowedHelp;
-  final List<T>? defaultsTo;
 
   /// This adds an [Option](https://pub.dev/documentation/args/latest/args/Option-class.html)
   /// with the given properties to the options that have been defined for this parser.
@@ -60,7 +56,10 @@ class MultiOptionArgument<T> extends BaseArgument<T> {
         return <T>[];
       }
 
-      return results[name] ?? defaultsTo ?? <T>[];
+      return <T>[
+        for (final Object? value in values) //
+          value.toEnum<T?>(null)!
+      ];
     } catch (_) {
       return defaultsTo ?? <T>[];
     }
