@@ -1,5 +1,5 @@
 /.github/*
-/coverage/*
 /logs/*
+/coverage/*
 /scripts/*
-/codecov.yaml
+/export/*

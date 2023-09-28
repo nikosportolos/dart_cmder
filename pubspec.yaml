@@ -15,9 +15,20 @@ dependencies:
   args: ^2.4.2
   meta: ^1.10.0
   path: ^1.8.3
-  trace: ^0.0.2-prerelease
+  trace: ^0.0.3-prerelease
 
 dev_dependencies:
   lints: ^2.1.1
   mocktail: ^1.0.0
   test: ^1.24.6
+
+screenshots:
+  - description: 'This is a sample usage of dart_cmder'
+    path: assets/images/example.png
+
+topics:
+  - cli
+  - console
+  - command
+  - interface
+  - terminal

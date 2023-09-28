@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'dart:io' show Directory, exit;
 
 import 'package:ansix/ansix.dart';
-import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:dart_cmder/src/interface/arguments/arguments.dart';
 import 'package:dart_cmder/src/interface/runner.dart';
@@ -100,9 +99,6 @@ abstract class BaseCommand extends Command<void> {
     cliRunner.printLogo();
 
     Trace.printListItem('Running command: ${name.bold()}');
-    for (final MapEntry<String, Option> options in argParser.options.entries) {
-      Trace.verbose(options.value.name);
-    }
   }
 
   Future<void> execute();

@@ -60,7 +60,7 @@ class DemoCommand extends BaseCommand {
         return Option.values.where((Option m) => m.name == value).first;
       });
 
-  List<Option> get modes => modeArg.parse(argResults) as List<Option>;
+  List<Option> get modes => modeArg.parse(argResults);
 
   bool get enabled => enabledArg.parse(argResults);
 

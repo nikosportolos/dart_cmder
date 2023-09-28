@@ -1,3 +1,3 @@
-## 0.0.1
+## v0.0.1-prerelease
 
-- Initial version.
+- Initial dart_cmder version.

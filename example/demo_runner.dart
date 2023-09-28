@@ -3,14 +3,9 @@
 import 'package:dart_cmder/dart_cmder.dart';
 import 'package:trace/trace.dart';
 
-enum Option {
-  option1,
-  option2,
-  option3;
+enum Mode { debug, stage, release }
 
-  @override
-  String toString() => name;
-}
+enum Feature { feat1, feat2, feat3, feat4 }
 
 class DemoRunner extends BaseRunner {
   DemoRunner({
@@ -53,14 +48,21 @@ class DemoCommand extends BaseCommand {
     defaultsTo: 'default-input-value',
   );
 
-  static const MultiOptionArgument<Option> modeArg = MultiOptionArgument<Option>(
+  static const EnumArgument<Mode> modeArg = EnumArgument<Mode>(
     name: 'mode',
     abbr: 'm',
-    help: 'This is a demo multi-option argument',
-    defaultsTo: <Option>[Option.option2],
+    help: 'This is a demo enum argument',
+    defaultsTo: Mode.debug,
   );
 
-  List<Option> get modes => modeArg.parse(argResults) as List<Option>;
+  static const MultiEnumArgument<Feature> featureArg = MultiEnumArgument<Feature>(
+    name: 'feature',
+    abbr: 'f',
+    help: 'This is a demo multi-option argument',
+    defaultsTo: <Feature>[Feature.feat1],
+  );
+
+  Mode get mode => modeArg.parse(argResults)!;
 
   bool get enabled => enabledArg.parse(argResults);
 

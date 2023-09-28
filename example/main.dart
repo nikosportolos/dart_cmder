@@ -9,7 +9,7 @@ void main() {
     'cmd',
     '--no-enabled',
     '-m',
-    'option3',
+    'stage',
     '-i',
     'Hello dart_cmder',
     '-l',
