@@ -12,6 +12,7 @@ void main() {
       );
 
       expect(logo.formatted, _simpleLogoMock);
+      expect(logo.toString(), _simpleLogoMock);
     });
   });
 }

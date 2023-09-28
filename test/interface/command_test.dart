@@ -18,8 +18,7 @@ void main() {
       expect(command.description, 'This is a demo command');
       expect(command.subcommands.isEmpty, false);
       expect(command.subcommands.entries.first.value.name, 'sub');
-      expect(command.subcommands.entries.first.value.description,
-          'Demo sub-command');
+      expect(command.subcommands.entries.first.value.description, 'Demo sub-command');
       expect(command.path, '.');
       expect(command.logLevel, LogLevel.info);
       expect(command.logsDirectory, null);
