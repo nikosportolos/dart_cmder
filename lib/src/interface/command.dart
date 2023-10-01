@@ -113,6 +113,7 @@ abstract class BaseCommand extends Command<void> {
     try {
       await init();
       await execute();
+      hasRun = true;
     } catch (e, st) {
       await exitWithError(e, st);
     }
@@ -190,16 +191,22 @@ abstract class BaseCommand extends Command<void> {
   }
 
   @visibleForTesting
-  bool skipExit = false;
+  bool shouldSkipExit = false;
+
+  @visibleForTesting
+  bool hasRun = false;
 
   Future<void> _exit(final int code) async {
+    if (shouldSkipExit) {
+      return;
+    }
+
     try {
       await Trace.dispose();
     } catch (e, st) {
       log('Failed to dispose Trace', error: e, stackTrace: st);
     }
-    if (!skipExit) {
-      exit(code);
-    }
+
+    exit(code);
   }
 }

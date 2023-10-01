@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:io';
 
 import 'package:dart_cmder/dart_cmder.dart';
@@ -17,6 +16,31 @@ void main() {
       expect(runner.description,
           'This is a demo CLI app written in Dart using dart_cmder.');
       expect(runner.usage, runnerUsageMock);
+    });
+
+    test('runs a command', () async {
+      final BaseRunner runner = EmptyRunner();
+      final DemoCommand command = DemoCommand();
+      command.shouldSkipExit = true;
+      runner.addCommand(command);
+
+      expect(
+        runner.run(<String>['cmd']).then((_) => expect(command.hasRun, isTrue)),
+        completes,
+      );
+    });
+
+    test('terminate with errors', () async {
+      final BaseRunner runner = EmptyRunner();
+      final ErrorCommand command = ErrorCommand();
+      command.shouldSkipExit = true;
+      runner.addCommand(command);
+
+      expect(
+        runner.run(<String>['error']).then(
+            (_) => expect(command.hasRun, isFalse)),
+        completes,
+      );
     });
 
     test('with args', () async {
@@ -38,13 +62,12 @@ void main() {
       ];
 
       final DemoCommand command = DemoCommand();
+      command.shouldSkipExit = true;
       final DemoRunner runner = DemoRunner(
         commands: <BaseCommand>[command],
       );
 
-      unawaited(runner.run(args));
-
-      await Future<void>.delayed(const Duration(milliseconds: 50));
+      await runner.run(args);
 
       expect(command.name, 'cmd');
       expect(command.description, 'This is a demo command');

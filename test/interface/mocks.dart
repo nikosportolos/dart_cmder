@@ -11,6 +11,17 @@ enum Option {
   String toString() => name;
 }
 
+class EmptyRunner extends BaseRunner {
+  EmptyRunner({
+    final List<BaseCommand> commands = const <BaseCommand>[],
+  }) : super(
+          executableName: 'empty',
+          description:
+              'This is a demo CLI app written in Dart using dart_cmder.',
+          $commands: commands,
+        );
+}
+
 class DemoRunner extends BaseRunner {
   DemoRunner({final List<BaseCommand>? commands})
       : super(
