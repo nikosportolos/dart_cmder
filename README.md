@@ -15,7 +15,6 @@ Command Line Interface (CLI) applications.
 
 It comes bundled with an integrated logger ([Trace](https://pub.dev/packages/trace)), providing 
 comprehensive visibility into the execution flow of your CLI apps. 
-
 Additionally, the package provides a set of convenient out-of-the-box arguments, 
 including the **project root path**, **log level**, and an optional 
 **log files directory** to save your log files. 
@@ -23,7 +22,6 @@ These pre-defined arguments simplify the process of configuring and customizing 
 
 With this package, developers can effortlessly handle input, output, and essential configuration options, 
 allowing them to focus on the core logic of their applications. 
-
 Whether you're crafting a simple script or a complex command-line tool, 
 this package empowers you to deliver seamless user experiences. 
 
