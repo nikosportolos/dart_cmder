@@ -159,8 +159,8 @@ void main() {
 }
 ```
 
-<a href="https://raw.githubusercontent.com/nikosportolos/dart_cmder/main/assets/images/example.png" target="_blank">
-  <img src="https://raw.githubusercontent.com/nikosportolos/dart_cmder/main/assets/images/example.png" width="750" alt="dart-cmder-example">
+<a href="https://raw.githubusercontent.com/nikosportolos/dart_cmder/main/assets/images/example.webp" target="_blank">
+  <img src="https://raw.githubusercontent.com/nikosportolos/dart_cmder/main/assets/images/example.webp" width="750" alt="dart-cmder-example">
 </a>
 
 Check the [example](https://github.com/nikosportolos/dart_cmder/tree/main/example) 

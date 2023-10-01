@@ -24,7 +24,7 @@ dev_dependencies:
 
 screenshots:
   - description: 'This is a sample usage of dart_cmder'
-    path: assets/images/example.png
+    path: assets/images/example.webp
 
 topics:
   - cli

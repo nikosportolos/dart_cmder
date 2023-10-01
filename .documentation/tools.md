@@ -66,8 +66,8 @@ void main() {
 ```
 
 
-<a href="https://raw.githubusercontent.com/nikosportolos/dart_cmder/main/assets/images/finder-grid-example.png" target="_blank">
-  <img src="https://raw.githubusercontent.com/nikosportolos/dart_cmder/main/assets/images/finder-grid-example.png" width="400" alt="finder-grid-example">
+<a href="https://raw.githubusercontent.com/nikosportolos/dart_cmder/main/assets/images/finder-grid-example.webp" target="_blank">
+  <img src="https://raw.githubusercontent.com/nikosportolos/dart_cmder/main/assets/images/finder-grid-example.webp" width="400" alt="finder-grid-example">
 </a>
 
 
