@@ -1,5 +1,5 @@
 name: test
-description: Sample pubspec.yaml
+description: This is a sample pubspec.yaml used for testing dart_cmder
 version: 0.0.1
 publish_to: 'none'
 
