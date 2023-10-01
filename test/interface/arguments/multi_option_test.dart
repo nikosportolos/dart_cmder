@@ -7,7 +7,8 @@ import 'utils.dart';
 void main() {
   group('MultiOptionArgument', () {
     test('null ArgResults', () {
-      const MultiOptionArgument<String?> argument = MultiOptionArgument<String?>(name: 'option');
+      const MultiOptionArgument<String?> argument =
+          MultiOptionArgument<String?>(name: 'option');
       argument.add(ArgParser());
       expect(argument.parse(null), <String?>[]);
     });

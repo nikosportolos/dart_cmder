@@ -10,7 +10,8 @@ void main() {
   group('MultiDirectoryArgument', () {
     group('null ArgResults', () {
       test('no default value', () {
-        const MultiDirectoryArgument argument = MultiDirectoryArgument(name: 'dir');
+        const MultiDirectoryArgument argument =
+            MultiDirectoryArgument(name: 'dir');
         argument.add(ArgParser());
         expect(argument.parse(null), <Directory>[]);
       });
@@ -60,8 +61,8 @@ void main() {
 
     group('with default value', () {
       testMultiDirectoryArgument(
-        argument:
-            MultiDirectoryArgument(name: 'dir', abbr: 'd', defaultsTo: <Directory>[testDirectory]),
+        argument: MultiDirectoryArgument(
+            name: 'dir', abbr: 'd', defaultsTo: <Directory>[testDirectory]),
         mocks: <Iterable<String>, List<Directory>?>{
           <String>['--dir', 'test']: <Directory>[testDirectory],
           <String>['-d', 'test']: <Directory>[testDirectory],

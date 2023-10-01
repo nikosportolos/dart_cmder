@@ -14,7 +14,8 @@ void main() {
     test('smoke test', () {
       final BaseRunner runner = DemoRunner();
       expect(runner.executableName, 'demo');
-      expect(runner.description, 'This is a demo CLI app written in Dart using dart_cmder.');
+      expect(runner.description,
+          'This is a demo CLI app written in Dart using dart_cmder.');
       expect(runner.usage, runnerUsageMock);
     });
 

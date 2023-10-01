@@ -28,7 +28,8 @@ class MultiEnumArgument<T> extends MultiOptionArgument<T> {
       aliases: aliases,
       allowed: allowedValues?.map((T e) => e.toString()),
       allowedHelp: allowedHelp,
-      defaultsTo: defaultsTo?.map((T e) => e.toString()).toList(growable: false),
+      defaultsTo:
+          defaultsTo?.map((T e) => e.toString()).toList(growable: false),
       help: help,
       hide: hide,
       splitCommas: splitCommas,

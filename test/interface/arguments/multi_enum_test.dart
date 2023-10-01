@@ -8,7 +8,8 @@ void main() {
   group('MultiEnumArgument', () {
     group('null ArgResults', () {
       test('no default value', () {
-        const MultiEnumArgument<Mode> argument = MultiEnumArgument<Mode>(name: 'mode');
+        const MultiEnumArgument<Mode> argument =
+            MultiEnumArgument<Mode>(name: 'mode');
         argument.add(ArgParser());
         expect(argument.parse(null), <Mode>[]);
       });
@@ -60,8 +61,8 @@ void main() {
 
     group('with default value - no value builder', () {
       testMultiOptionArgument(
-        argument:
-            const MultiEnumArgument<Mode>(name: 'mode', abbr: 'm', defaultsTo: <Mode>[Mode.debug]),
+        argument: const MultiEnumArgument<Mode>(
+            name: 'mode', abbr: 'm', defaultsTo: <Mode>[Mode.debug]),
         mocks: <Iterable<String>, List<Mode>?>{
           <String>['--mode', Mode.release.name]: <Mode>[Mode.release],
           <String>['-m', Mode.release.name]: <Mode>[Mode.release],
@@ -77,7 +78,9 @@ void main() {
           name: 'mode',
           abbr: 'm',
           valueBuilder: (Object? m) {
-            return Mode.values.where((Mode mode) => m.toString() == mode.name).firstOrNull ??
+            return Mode.values
+                    .where((Mode mode) => m.toString() == mode.name)
+                    .firstOrNull ??
                 Mode.debug;
           },
         ),
@@ -97,7 +100,9 @@ void main() {
           abbr: 'm',
           defaultsTo: <Mode>[Mode.debug],
           valueBuilder: (Object? m) {
-            return Mode.values.where((Mode mode) => m.toString() == mode.name).firstOrNull ??
+            return Mode.values
+                    .where((Mode mode) => m.toString() == mode.name)
+                    .firstOrNull ??
                 Mode.debug;
           },
         ),

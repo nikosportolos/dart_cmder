@@ -58,7 +58,8 @@ void main() {
 
     group('with default value', () {
       testDirectoryArgument(
-        argument: DirectoryArgument(name: 'dir', abbr: 'd', defaultsTo: testDirectory),
+        argument: DirectoryArgument(
+            name: 'dir', abbr: 'd', defaultsTo: testDirectory),
         mocks: <Iterable<String>, Directory?>{
           <String>['--dir', 'test']: testDirectory,
           <String>['-d', 'test']: testDirectory,

@@ -23,7 +23,10 @@ abstract class BaseCommand extends Command<void> {
     }
 
     // Add and parse arguments
-    for (BaseArgument<void> arg in <BaseArgument<void>>[...arguments, ...cmderArguments]) {
+    for (BaseArgument<void> arg in <BaseArgument<void>>[
+      ...arguments,
+      ...cmderArguments
+    ]) {
       arg.add(argParser);
     }
   }
@@ -76,7 +79,8 @@ abstract class BaseCommand extends Command<void> {
 
   Future<void> init() async {
     final BaseRunner cliRunner = runner as BaseRunner;
-    final LogFilter logFilter = filter ?? DefaultLogFilter(logLevel, debugOnly: false);
+    final LogFilter logFilter =
+        filter ?? DefaultLogFilter(logLevel, debugOnly: false);
 
     Trace.registerLoggers(
       <Logger>[
@@ -125,7 +129,10 @@ abstract class BaseCommand extends Command<void> {
   void printArguments() {
     final AnsiGrid grid = AnsiGrid.fromRows(
       <List<Object?>>[
-        for (final BaseArgument<void> arg in <BaseArgument<void>>[...arguments, ...cmderArguments])
+        for (final BaseArgument<void> arg in <BaseArgument<void>>[
+          ...arguments,
+          ...cmderArguments
+        ])
           <Object?>[
             '  - ',
             AnsiText(
@@ -172,7 +179,8 @@ abstract class BaseCommand extends Command<void> {
     _stopwatch.stop();
 
     if (hasErrors) {
-      Trace.error('${runner?.executableName.bold()} terminated with error:', error, stacktrace);
+      Trace.error('${runner?.executableName.bold()} terminated with error:',
+          error, stacktrace);
       Trace.error('❌ finished with errors in ${_stopwatch.elapsed}');
       await _exit(code ?? 1);
     }

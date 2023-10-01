@@ -62,7 +62,8 @@ void testMultiOptionArgument<T>({
   required final MultiOptionArgumentMock<T> mocks,
   required final MultiOptionArgument<T> argument,
 }) {
-  for (final MapEntry<Iterable<String>, Iterable<dynamic>?> mock in mocks.entries) {
+  for (final MapEntry<Iterable<String>, Iterable<dynamic>?> mock
+      in mocks.entries) {
     test('${mock.key} --> ${mock.value}', () {
       final ArgParser parser = ArgParser();
       argument.add(parser);
@@ -95,7 +96,8 @@ void testMultiDirectoryArgument({
   required final MultiOptionArgumentMock<Directory> mocks,
   required final MultiOptionArgument<Directory> argument,
 }) {
-  for (final MapEntry<Iterable<String>, List<Directory>?> mock in mocks.entries) {
+  for (final MapEntry<Iterable<String>, List<Directory>?> mock
+      in mocks.entries) {
     test('${mock.key} --> ${mock.value}', () {
       final ArgParser parser = ArgParser();
       argument.add(parser);

@@ -27,7 +27,8 @@ void main() {
       });
 
       test('./test/tools/finder/samples', () {
-        expect(Finder.findDirectoryFromPath('./test/tools/finder/samples').path, path);
+        expect(Finder.findDirectoryFromPath('./test/tools/finder/samples').path,
+            path);
       });
 
       test(path, () {
@@ -42,9 +43,14 @@ void main() {
       });
 
       test('Find all files - not recursive', () {
-        final List<FileSystemEntity> files = Finder.findFiles(path: path, recursive: false);
+        final List<FileSystemEntity> files =
+            Finder.findFiles(path: path, recursive: false);
         expect(files.length, 0);
-        expect(Finder.findFiles(path: join(path, 'project_1', 'lib'), recursive: false).length, 1);
+        expect(
+            Finder.findFiles(
+                    path: join(path, 'project_1', 'lib'), recursive: false)
+                .length,
+            1);
       });
 
       test('Find dart files', () {

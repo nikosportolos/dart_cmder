@@ -26,8 +26,9 @@ class FileArgument extends OptionArgument<File> {
       name,
       abbr: abbr,
       aliases: aliases,
-      allowed:
-          allowedValues?.map((File directory) => directory.absolute.path).toList(growable: false),
+      allowed: allowedValues
+          ?.map((File directory) => directory.absolute.path)
+          .toList(growable: false),
       allowedHelp: allowedHelp,
       defaultsTo: defaultsTo?.absolute.path.toString(),
       help: help,

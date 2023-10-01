@@ -28,8 +28,9 @@ class MultiFileArgument extends MultiOptionArgument<File> {
       name,
       abbr: abbr,
       aliases: aliases,
-      allowed:
-          allowedValues?.map((File directory) => directory.absolute.path).toList(growable: false),
+      allowed: allowedValues
+          ?.map((File directory) => directory.absolute.path)
+          .toList(growable: false),
       allowedHelp: allowedHelp,
       defaultsTo: defaultsTo
           ?.map((File directory) => directory.absolute.path.toString())

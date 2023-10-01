@@ -12,7 +12,8 @@ class DemoRunner extends BaseRunner {
     final List<BaseCommand> commands = const <BaseCommand>[],
   }) : super(
           executableName: 'demo',
-          description: 'This is a demo CLI app written in Dart using dart_cmder.',
+          description:
+              'This is a demo CLI app written in Dart using dart_cmder.',
           $commands: <BaseCommand>[
             DemoCommand(),
             ...commands,
@@ -33,7 +34,8 @@ class DemoCommand extends BaseCommand {
   String get description => 'This is a demo command';
 
   @override
-  List<BaseArgument<void>> get arguments => <BaseArgument<void>>[enabledArg, inputArg, modeArg];
+  List<BaseArgument<void>> get arguments =>
+      <BaseArgument<void>>[enabledArg, inputArg, modeArg];
 
   static const FlagArgument enabledArg = FlagArgument(
     name: 'enabled',
@@ -55,7 +57,8 @@ class DemoCommand extends BaseCommand {
     defaultsTo: Mode.debug,
   );
 
-  static const MultiEnumArgument<Feature> featureArg = MultiEnumArgument<Feature>(
+  static const MultiEnumArgument<Feature> featureArg =
+      MultiEnumArgument<Feature>(
     name: 'feature',
     abbr: 'f',
     help: 'This is a demo multi-option argument',

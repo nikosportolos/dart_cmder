@@ -8,7 +8,8 @@ void main() {
   group('EnumArgument', () {
     group('null ArgResults', () {
       test('no default value', () {
-        const OptionArgument<Mode?> argument = EnumArgument<Mode?>(name: 'mode');
+        const OptionArgument<Mode?> argument =
+            EnumArgument<Mode?>(name: 'mode');
         argument.add(ArgParser());
         expect(argument.parse(null), null);
       });
@@ -37,7 +38,8 @@ void main() {
 
     group('with default value - no value builder', () {
       testOptionArgument(
-        argument: const EnumArgument<Mode>(name: 'mode', abbr: 'm', defaultsTo: Mode.debug),
+        argument: const EnumArgument<Mode>(
+            name: 'mode', abbr: 'm', defaultsTo: Mode.debug),
         mocks: <Iterable<String>, Mode>{
           <String>['--mode', Mode.release.name]: Mode.release,
           <String>['-m', Mode.release.name]: Mode.release,
@@ -53,7 +55,9 @@ void main() {
           name: 'mode',
           abbr: 'm',
           valueBuilder: (Object? m) {
-            return Mode.values.where((Mode mode) => m.toString() == mode.name).firstOrNull ??
+            return Mode.values
+                    .where((Mode mode) => m.toString() == mode.name)
+                    .firstOrNull ??
                 Mode.debug;
           },
         ),

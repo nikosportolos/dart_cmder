@@ -9,7 +9,8 @@ void main() {
     group('String', () {
       group('null ArgResults', () {
         test('no default value', () {
-          const OptionArgument<String?> argument = OptionArgument<String?>(name: 'option');
+          const OptionArgument<String?> argument =
+              OptionArgument<String?>(name: 'option');
           argument.add(ArgParser());
           expect(argument.parse(null), null);
         });
@@ -56,8 +57,8 @@ void main() {
 
       group('with default value', () {
         testOptionArgument(
-          argument:
-              const OptionArgument<String?>(name: 'option', abbr: 'o', defaultsTo: 'dart_cmder'),
+          argument: const OptionArgument<String?>(
+              name: 'option', abbr: 'o', defaultsTo: 'dart_cmder'),
           mocks: <Iterable<String>, String?>{
             <String>['--option', 'test']: 'test',
             <String>['-o', 'test']: 'test',

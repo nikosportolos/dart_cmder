@@ -24,7 +24,7 @@ action="${BLUE}Check Formatting${NC}"
 echo "┌───────────────────────────────────────┐"
 echo -e "│ ${action}                      │"
 echo "└───────────────────────────────────────┘"
-dart format . -l 100 --fix || { echo 'dart format failed' ; exit 1; }
+dart format . -l 80 --fix || { echo 'dart format failed' ; exit 1; }
 echo ""
 
 

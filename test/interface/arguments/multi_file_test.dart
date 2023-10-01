@@ -60,7 +60,8 @@ void main() {
 
     group('with default value', () {
       testMultiFileArgument(
-        argument: MultiFileArgument(name: 'file', abbr: 'f', defaultsTo: <File>[testFile]),
+        argument: MultiFileArgument(
+            name: 'file', abbr: 'f', defaultsTo: <File>[testFile]),
         mocks: <Iterable<String>, List<File>?>{
           <String>['--file', 'test']: <File>[testFile],
           <String>['-f', 'test']: <File>[testFile],
