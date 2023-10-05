@@ -33,8 +33,8 @@ full potential of your CLI apps with **dart_cmder**.
 
 ## Table of Contents
 
-* [Getting started](#getting-started)
-* [Interface](#interface)
+* [Usage](#usage)
+* Interface
   * [BaseRunner](./.documentation/runner.md#baserunner)
   * [BaseCommand](./.documentation/command.md#basecommand)
   * [BaseArgument](./.documentation/argument.md#baseargument)
