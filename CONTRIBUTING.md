@@ -1,8 +1,8 @@
 # Contributing to dart_cmder
 
-[![GitHub issues](https://img.shields.io/github/issues/nikosportolos/dart_cmder)](https://github.com/nikosportolos/dart_cmder//issues)
-[![GitHub pull requests](https://img.shields.io/github/issues-pr-raw/nikosportolos/dart_cmder/)](https://github.com/nikosportolos/dart_cmder//pulls)
-[![GitHub Discussions](https://img.shields.io/github/discussions/nikosportolos/dart_cmder/)](https://github.com/nikosportolos/dart_cmder//discussions)
+[![GitHub issues](https://img.shields.io/github/issues/nikosportolos/dart_cmder)](https://github.com/nikosportolos/dart_cmder/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr-raw/nikosportolos/dart_cmder/)](https://github.com/nikosportolos/dart_cmder/pulls)
+[![GitHub Discussions](https://img.shields.io/github/discussions/nikosportolos/dart_cmder/)](https://github.com/nikosportolos/dart_cmder/discussions)
 
 
 First off, thanks for taking the time to contribute! 💙
