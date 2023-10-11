@@ -12,9 +12,10 @@ class Finder {
   static final RegExp dartMatchingPattern = RegExp(r'^[a-zA-Z0-9_]+.dart$');
   static final RegExp yamlMatchingPattern = RegExp(r'^[a-zA-Z0-9_]+.yaml$');
 
-  static const String analysisOptionsFileName = 'analysis_options.yaml';
+  static const String analysisOptionsYaml = 'analysis_options.yaml';
   static const String l10nYaml = 'l10n.yaml';
   static const String pubspecYaml = 'pubspec.yaml';
+  static const String pubspecLock = 'pubspec.lock';
 
   static Directory findDirectoryFromPath(final String? path) {
     if (path == null || path.trim().isEmpty) {
@@ -39,7 +40,8 @@ class Finder {
             : matchingPattern.hasMatch(basename(file.path)));
   }
 
-  static List<FileSystemEntity> findFiles({
+  /// Returns a list of files found in the given [path].
+  static List<File> findFiles({
     final RegExp? matchingPattern,
     required final String path,
     final bool? recursive,
@@ -65,7 +67,8 @@ class Finder {
         .toList(growable: false);
   }
 
-  static List<FileSystemEntity> findArbFiles({
+  /// Returns a list of `.arb` files found in the given [path].
+  static List<File> findArbFiles({
     required final String path,
     final bool? recursive,
   }) {
@@ -76,7 +79,8 @@ class Finder {
     );
   }
 
-  static List<FileSystemEntity> findDartFiles({
+  /// Returns a list of `.dart` files found in the given [path].
+  static List<File> findDartFiles({
     required final String path,
     final bool? recursive,
   }) {
@@ -87,7 +91,8 @@ class Finder {
     );
   }
 
-  static List<FileSystemEntity> findYamlFiles({
+  /// Returns a list of `.yaml` files found in the given [path].
+  static List<File> findYamlFiles({
     required final String path,
     final bool? recursive,
   }) {
@@ -96,5 +101,29 @@ class Finder {
       path: path,
       recursive: recursive,
     );
+  }
+
+  /// Returns a list of `pubspec.yaml` files found in the given [path].
+  static List<File> findPubspecYamlFiles({
+    required final String path,
+    final bool? recursive,
+  }) {
+    return findFiles(
+      matchingPattern: RegExp('$pubspecYaml\$'),
+      path: path,
+      recursive: recursive,
+    ).toList(growable: false);
+  }
+
+  /// Returns a list of `pubspec.lock` files found in the given [path].
+  static List<File> findPubspecLockFiles({
+    required final String path,
+    final bool? recursive,
+  }) {
+    return findFiles(
+      matchingPattern: RegExp('$pubspecLock\$'),
+      path: path,
+      recursive: recursive,
+    ).toList(growable: false);
   }
 }

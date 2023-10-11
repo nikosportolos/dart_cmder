@@ -39,7 +39,7 @@ void main() {
     group('Find files', () {
       test('Find all files', () {
         final List<FileSystemEntity> files = Finder.findFiles(path: path);
-        expect(files.length, 13);
+        expect(files.length, 15);
       });
 
       test('Find all files - not recursive', () {
@@ -69,17 +69,19 @@ void main() {
       });
 
       test('Find pubspec.yaml files', () {
-        final List<FileSystemEntity> files = Finder.findFiles(
-          path: path,
-          matchingPattern: RegExp(Finder.pubspecYaml),
-        );
+        final List<File> files = Finder.findPubspecYamlFiles(path: path);
         expect(files.length, 3);
+      });
+
+      test('Find pubspec.lock files', () {
+        final List<File> files = Finder.findPubspecLockFiles(path: path);
+        expect(files.length, 2);
       });
 
       test('Find analysis_options.yaml files', () {
         final List<FileSystemEntity> files = Finder.findFiles(
           path: path,
-          matchingPattern: RegExp(Finder.analysisOptionsFileName),
+          matchingPattern: RegExp(Finder.analysisOptionsYaml),
         );
         expect(files.length, 1);
       });
@@ -94,7 +96,7 @@ void main() {
 
       test('Find absolute paths', () {
         final List<String> files = Finder.findAbsoluteFilePaths(path: path);
-        expect(files.length, 13);
+        expect(files.length, 15);
       });
     });
   });

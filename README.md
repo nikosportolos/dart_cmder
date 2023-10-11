@@ -177,3 +177,4 @@ if you want to help with **dart_cmder**.
 
 Check the [changelog](https://github.com/nikosportolos/dart_cmder/tree/main/CHANGELOG.md)
 to learn what's new in **dart_cmder**.
+
