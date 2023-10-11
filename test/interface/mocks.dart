@@ -100,7 +100,7 @@ class DemoSubCommand extends BaseCommand {
   }
 }
 
-class ErrorCommand extends BaseCommand {
+class ErrorOnExecuteCommand extends BaseCommand {
   @override
   String get name => 'error';
 
@@ -109,6 +109,22 @@ class ErrorCommand extends BaseCommand {
 
   @override
   Future<void> execute() async {
+    throw Exception('this is a test exception');
+  }
+}
+
+class ErrorOnDisposeCommand extends BaseCommand {
+  @override
+  String get name => 'error';
+
+  @override
+  String get description => 'error command';
+
+  @override
+  Future<void> execute() async {}
+
+  @override
+  Future<void> dispose() async {
     throw Exception('this is a test exception');
   }
 }
