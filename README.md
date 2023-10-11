@@ -36,6 +36,7 @@ full potential of your CLI apps with **dart_cmder**.
 * [Usage](#usage)
 * Interface
   * [BaseRunner](./.documentation/runner.md#baserunner)
+    * [Logo](./.documentation/runner.md#logo)
   * [BaseCommand](./.documentation/command.md#basecommand)
   * [BaseArgument](./.documentation/argument.md#baseargument)
     * [FlagArgument](./.documentation/argument.md#flagargument)

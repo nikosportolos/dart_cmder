@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:ansix/ansix.dart';
 import 'package:args/command_runner.dart';
 import 'package:dart_cmder/src/interface/command.dart';
 import 'package:dart_cmder/src/logo.dart';
@@ -37,20 +36,12 @@ abstract class BaseRunner extends CommandRunner<void> {
       return;
     }
 
-    Trace.print(logo?.formatted ??
-        Logo(
-          title: AnsiText(
-            executableName,
-            style: const AnsiTextStyle(bold: true),
-            padding: AnsiPadding.horizontal(2),
-            alignment: AnsiTextAlignment.center,
-          ),
-          subtitle: AnsiText(
-            description,
-            style: const AnsiTextStyle(italic: true),
-            alignment: AnsiTextAlignment.center,
-            padding: AnsiPadding.horizontal(2),
-          ),
-        ).formatted);
+    Trace.print(
+      logo?.formattedText ??
+          Logo.fromText(
+            title: executableName,
+            subtitle: description,
+          ).formattedText,
+    );
   }
 }
