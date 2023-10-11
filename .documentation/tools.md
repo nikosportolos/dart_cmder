@@ -5,6 +5,7 @@
 * [Tools](#tools)
   * [Logging](#logging)
   * [Finder](#finder)
+    * [Available methods](#available-methods)
 
 ---
 
