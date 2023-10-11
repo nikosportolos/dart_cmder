@@ -21,8 +21,8 @@ class FileArgument extends OptionArgument<File> {
   /// This adds an [Option](https://pub.dev/documentation/args/latest/args/Option-class.html)
   /// with the given properties to the options that have been defined for this parser.
   @override
-  void add(final ArgParser parser) {
-    parser.addOption(
+  void add(final ArgParser argParser) {
+    argParser.addOption(
       name,
       abbr: abbr,
       aliases: aliases,
@@ -40,17 +40,17 @@ class FileArgument extends OptionArgument<File> {
 
   /// This method is used to parse the given [ArgResults] into a [File].
   @override
-  File? parse(ArgResults? results) {
-    if (results == null) {
+  File? parse(ArgResults? argResults) {
+    if (argResults == null) {
       return defaultsTo;
     }
 
     try {
       if (valueBuilder != null) {
-        return valueBuilder!.call(results[name]);
+        return valueBuilder!.call(argResults[name]);
       }
 
-      final String? value = results[name];
+      final String? value = argResults[name];
       if (value.isNullOrEmpty) {
         return defaultsTo;
       }

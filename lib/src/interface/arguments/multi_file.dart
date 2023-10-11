@@ -23,8 +23,8 @@ class MultiFileArgument extends MultiOptionArgument<File> {
   /// This adds an [Option](https://pub.dev/documentation/args/latest/args/Option-class.html)
   /// with the given properties to the options that have been defined for this parser.
   @override
-  void add(final ArgParser parser) {
-    parser.addMultiOption(
+  void add(final ArgParser argParser) {
+    argParser.addMultiOption(
       name,
       abbr: abbr,
       aliases: aliases,
@@ -44,20 +44,20 @@ class MultiFileArgument extends MultiOptionArgument<File> {
 
   /// This method is used to parse the given [ArgResults] into a [List<File>].
   @override
-  List<File> parse(ArgResults? results) {
-    if (results == null) {
+  List<File> parse(ArgResults? argResults) {
+    if (argResults == null) {
       return defaultsTo?.toList(growable: false) ?? <File>[];
     }
 
     try {
       if (valueBuilder != null) {
         return <File>[
-          for (final Object? o in results[name]) //
+          for (final Object? o in argResults[name]) //
             valueBuilder!.call(o)
         ];
       }
 
-      final List<Object?> values = results[name];
+      final List<Object?> values = argResults[name];
       if (values.isEmpty) {
         return <File>[];
       }

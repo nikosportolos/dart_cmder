@@ -24,8 +24,8 @@ class OptionArgument<T> extends BaseArgument<T> {
   /// This adds an [Option](https://pub.dev/documentation/args/latest/args/Option-class.html)
   /// with the given properties to the options that have been defined for this parser.
   @override
-  void add(final ArgParser parser) {
-    parser.addOption(
+  void add(final ArgParser argParser) {
+    argParser.addOption(
       name,
       abbr: abbr,
       aliases: aliases,
@@ -51,17 +51,17 @@ class OptionArgument<T> extends BaseArgument<T> {
 
   /// This method is used to parse the given [ArgResults] into a [T?].
   @override
-  T? parse(ArgResults? results) {
-    if (results == null) {
+  T? parse(ArgResults? argResults) {
+    if (argResults == null) {
       return defaultsTo;
     }
 
     try {
       if (valueBuilder != null) {
-        return valueBuilder!.call(results[name]);
+        return valueBuilder!.call(argResults[name]);
       }
 
-      return results[name] ?? defaultsTo;
+      return argResults[name] ?? defaultsTo;
     } catch (_) {
       return defaultsTo;
     }

@@ -21,8 +21,8 @@ class DirectoryArgument extends OptionArgument<Directory> {
   /// This adds an [Option](https://pub.dev/documentation/args/latest/args/Option-class.html)
   /// with the given properties to the options that have been defined for this parser.
   @override
-  void add(final ArgParser parser) {
-    parser.addOption(
+  void add(final ArgParser parargParserer) {
+    parargParserer.addOption(
       name,
       abbr: abbr,
       aliases: aliases,
@@ -40,22 +40,22 @@ class DirectoryArgument extends OptionArgument<Directory> {
 
   /// This method is used to parse the given [ArgResults] into a [Directory].
   @override
-  Directory? parse(ArgResults? results) {
-    if (results == null) {
+  Directory? parse(ArgResults? argResults) {
+    if (argResults == null) {
       return defaultsTo;
     }
 
     try {
       if (valueBuilder != null) {
-        return valueBuilder!.call(results[name]);
+        return valueBuilder!.call(argResults[name]);
       }
 
-      final String? value = results[name];
+      final String? value = argResults[name];
       if (value.isNullOrEmpty) {
         return defaultsTo;
       }
 
-      return Directory(value!);
+      return Finder.findDirectoryFromPath(value);
     } catch (_) {
       return defaultsTo;
     }

@@ -23,8 +23,8 @@ class FlagArgument extends BaseArgument<bool> {
   /// This adds an [Option](https://pub.dev/documentation/args/latest/args/Option-class.html)
   /// with the given properties to the options that have been defined for this parser.
   @override
-  void add(final ArgParser parser) {
-    parser.addFlag(
+  void add(final ArgParser argParser) {
+    argParser.addFlag(
       name,
       abbr: abbr,
       aliases: aliases,
@@ -36,11 +36,11 @@ class FlagArgument extends BaseArgument<bool> {
   }
 
   @override
-  bool parse(ArgResults? results) {
-    if (results == null || results.options.isEmpty) {
+  bool parse(ArgResults? argResults) {
+    if (argResults == null || argResults.options.isEmpty) {
       return defaultsTo ?? false;
     }
 
-    return results[name] ?? defaultsTo ?? false;
+    return argResults[name] ?? defaultsTo ?? false;
   }
 }
