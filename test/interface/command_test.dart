@@ -54,22 +54,5 @@ void main() {
       expect(command.path, '.');
       expect(command.runner, runner);
     });
-
-    // test('with error', () async {
-    //   final StreamSubscription<LogEntry> sub =
-    //       Trace.stream.listen((LogEntry event) {});
-    //   try {
-    //     final ErrorCommand command = ErrorCommand();
-    //     final DemoRunner runner = DemoRunner(commands: <BaseCommand>[command]);
-    //
-    //     command.skipExit = true;
-    //
-    //     await command.run();
-    //
-    //   } catch (e) {
-    //     // TODO
-    //   }
-    //   await sub.cancel();
-    // });
   });
 }

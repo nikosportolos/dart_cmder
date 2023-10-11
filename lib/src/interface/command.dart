@@ -3,8 +3,7 @@ import 'dart:io' show Directory, exit;
 
 import 'package:ansix/ansix.dart';
 import 'package:args/command_runner.dart';
-import 'package:dart_cmder/src/interface/arguments/arguments.dart';
-import 'package:dart_cmder/src/interface/runner.dart';
+import 'package:dart_cmder/dart_cmder.dart';
 import 'package:meta/meta.dart';
 import 'package:trace/trace.dart';
 
@@ -23,12 +22,10 @@ abstract class BaseCommand extends Command<void> {
     }
 
     // Add and parse arguments
-    for (BaseArgument<void> arg in <BaseArgument<void>>[
+    argParser.addArguments(<BaseArgument<dynamic>>[
       ...arguments,
-      ...cmderArguments
-    ]) {
-      arg.add(argParser);
-    }
+      ...cmderArguments,
+    ]);
   }
 
   final List<BaseArgument<void>> arguments;
@@ -164,18 +161,14 @@ abstract class BaseCommand extends Command<void> {
 
   /// Terminates the CLI app with errors.
   Future<void> exitWithError(final Object error, [final StackTrace? st]) async {
-    await _terminate(
-      hasErrors: true,
-      error: error,
-      stacktrace: st,
-    );
+    hasErrors = true;
+    await _terminate(error: error, stacktrace: st);
   }
 
   Future<void> _terminate({
     final int? code,
     final Object? error,
     final StackTrace? stacktrace,
-    final bool hasErrors = false,
   }) async {
     _stopwatch.stop();
 
@@ -195,6 +188,9 @@ abstract class BaseCommand extends Command<void> {
 
   @visibleForTesting
   bool hasRun = false;
+
+  @visibleForTesting
+  bool hasErrors = false;
 
   Future<void> _exit(final int code) async {
     if (shouldSkipExit) {

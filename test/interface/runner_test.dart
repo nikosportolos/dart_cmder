@@ -25,20 +25,40 @@ void main() {
       runner.addCommand(command);
 
       expect(
-        runner.run(<String>['cmd']).then((_) => expect(command.hasRun, isTrue)),
+        runner.run(<String>['cmd']).then((_) {
+          expect(command.hasRun, isTrue);
+          expect(command.hasErrors, isFalse);
+        }),
         completes,
       );
     });
 
     test('terminate with errors', () async {
       final BaseRunner runner = EmptyRunner();
-      final ErrorCommand command = ErrorCommand();
+      final BaseCommand command = ErrorOnExecuteCommand();
       command.shouldSkipExit = true;
       runner.addCommand(command);
 
       expect(
-        runner.run(<String>['error']).then(
-            (_) => expect(command.hasRun, isFalse)),
+        runner.run(<String>['error']).then((_) {
+          expect(command.hasRun, isFalse);
+          expect(command.hasErrors, isTrue);
+        }),
+        completes,
+      );
+    });
+
+    test('terminate with errors', () async {
+      final BaseRunner runner = EmptyRunner();
+      final BaseCommand command = ErrorOnDisposeCommand();
+      command.shouldSkipExit = true;
+      runner.addCommand(command);
+
+      expect(
+        runner.run(<String>['error']).then((_) {
+          expect(command.hasRun, isTrue);
+          expect(command.hasErrors, isTrue);
+        }),
         completes,
       );
     });

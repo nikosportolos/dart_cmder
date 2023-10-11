@@ -13,6 +13,7 @@ void main() {
         final ArgParser parser = ArgParser();
         parser.addArgument(arg1);
         expect(parser.options.length, 1);
+        expect(parser.options.containsKey(arg1.name), isTrue);
       });
 
       test('addArguments', () {
@@ -21,6 +22,8 @@ void main() {
           <BaseArgument<dynamic>>[arg2, arg3],
         );
         expect(parser.options.length, 2);
+        expect(parser.options.containsKey(arg2.name), isTrue);
+        expect(parser.options.containsKey(arg3.name), isTrue);
       });
     });
   });
