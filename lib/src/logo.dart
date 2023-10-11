@@ -1,37 +1,65 @@
 import 'package:ansix/ansix.dart';
 
-class Logo {
+/// Represents the logo of a CLI app.
+class Logo extends AnsiWidget {
   Logo({
     required this.title,
     this.subtitle,
-    this.theme,
+    this.border,
+    this.wrapOptions,
   }) {
-    formatted = AnsiGrid.list(
+    formattedText = AnsiGrid.list(
       <Object?>[
         title,
         if (subtitle != null) subtitle,
       ],
-      theme: theme ??
-          const AnsiGridTheme(
-            border: AnsiBorder(
+      theme: AnsiGridTheme(
+        border: border ??
+            const AnsiBorder(
               type: AnsiBorderType.outside,
             ),
-            overrideTheme: true,
-            cellTextTheme: AnsiTextTheme(
-              alignment: AnsiTextAlignment.center,
-            ),
-            wrapText: true,
-            wrapOptions: WrapOptions(lineLength: 80),
-          ),
+        overrideTheme: true,
+        cellTextTheme: const AnsiTextTheme(
+          alignment: AnsiTextAlignment.center,
+        ),
+        wrapText: true,
+        wrapOptions: wrapOptions ?? const WrapOptions(lineLength: 80),
+      ),
     ).formattedText;
   }
 
   final AnsiText title;
   final AnsiText? subtitle;
-  final AnsiGridTheme? theme;
-
-  late final String formatted;
+  final AnsiBorder? border;
+  final WrapOptions? wrapOptions;
 
   @override
-  String toString() => formatted;
+  late final String formattedText;
+
+  /// Returns a [Logo] using the default text styles.
+  factory Logo.fromText({
+    required final String title,
+    final String? subtitle,
+    final AnsiBorder? border,
+    final WrapOptions? wrapOptions,
+  }) {
+    return Logo(
+      title: AnsiText(
+        title,
+        style: const AnsiTextStyle(bold: true),
+        padding: AnsiPadding.horizontal(2),
+        alignment: AnsiTextAlignment.center,
+      ),
+      subtitle: subtitle == null
+          ? null
+          : AnsiText(
+              subtitle,
+              style: const AnsiTextStyle(italic: true),
+              alignment: AnsiTextAlignment.center,
+              padding: AnsiPadding.horizontal(2),
+            ),
+      border: border,
+      wrapOptions: wrapOptions,
+    );
+  }
 }
