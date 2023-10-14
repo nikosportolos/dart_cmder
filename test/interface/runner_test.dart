@@ -97,6 +97,7 @@ void main() {
       expect(command.logLevel, LogLevel.success);
       expect(command.logsDirectory?.path, Directory(logpath).path);
       expect(command.path, path);
+      expect(command.colored, true);
       expect(command.runner, runner);
       expect(command.enabled, false);
       expect(command.modes, <Option>[Option.option1]);

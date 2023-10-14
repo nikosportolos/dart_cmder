@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io' show Directory, exit;
 
 import 'package:ansix/ansix.dart';
@@ -34,6 +33,8 @@ abstract class BaseCommand extends Command<void> {
   final Stopwatch _stopwatch = Stopwatch();
 
   /// Project root path argument.
+  ///
+  /// Defaults to `.`
   static const BaseArgument<String> pathArg = OptionArgument<String>(
     name: 'path',
     abbr: 'p',
@@ -42,6 +43,8 @@ abstract class BaseCommand extends Command<void> {
   );
 
   /// Log level argument.
+  ///
+  /// Defaults to `LogLevel.info`
   static const BaseArgument<LogLevel> logLevelArg = EnumArgument<LogLevel>(
     name: 'level',
     abbr: 'l',
@@ -54,6 +57,8 @@ abstract class BaseCommand extends Command<void> {
   ///
   /// If this argument flag is not null, then a [FileLogger] will be used
   /// to log messages into the specified directory.
+  ///
+  /// Defaults to `null`
   static const BaseArgument<Directory> logDirectoryArg = DirectoryArgument(
     name: 'logdir',
     abbr: 'd',
@@ -62,10 +67,24 @@ abstract class BaseCommand extends Command<void> {
     defaultsTo: null,
   );
 
+  /// Colored text.
+  ///
+  /// If set to false, no colors will be printed in the console.
+  ///
+  /// Defaults to `true`
+  static const FlagArgument colorArg = FlagArgument(
+    name: 'color',
+    abbr: 'c',
+    negatable: true,
+    help: 'If set to false, no colors will be printed in the console.',
+    defaultsTo: true,
+  );
+
   static const List<BaseArgument<void>> cmderArguments = <BaseArgument<void>>[
     pathArg,
     logLevelArg,
     logDirectoryArg,
+    colorArg,
   ];
 
   String? get path => pathArg.parse(argResults);
@@ -74,7 +93,12 @@ abstract class BaseCommand extends Command<void> {
 
   Directory? get logsDirectory => logDirectoryArg.parse(argResults);
 
+  bool get colored => colorArg.parse(argResults);
+
   Future<void> init() async {
+    final bool allowColors = colorArg.parse(argResults);
+    Trace.toggleAnsiFormatting(allowColors);
+
     final BaseRunner cliRunner = runner as BaseRunner;
     final LogFilter logFilter =
         filter ?? DefaultLogFilter(logLevel, debugOnly: false);
@@ -84,7 +108,6 @@ abstract class BaseCommand extends Command<void> {
         ConsoleLogger(
           level: logLevel,
           theme: cliRunner.loggerTheme,
-          ioSink: cliRunner.sink,
           filter: logFilter,
         ),
         if (logsDirectory != null)
@@ -197,12 +220,7 @@ abstract class BaseCommand extends Command<void> {
       return;
     }
 
-    try {
-      await Trace.dispose();
-    } catch (e, st) {
-      log('Failed to dispose Trace', error: e, stackTrace: st);
-    }
-
+    await Trace.dispose();
     exit(code);
   }
 }

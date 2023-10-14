@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="no_logo.dart" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application" folderName="Logos" nameIsGenerated="true">
+    <option name="filePath" value="$PROJECT_DIR$/example/logo/no_logo.dart" />
+    <option name="workingDirectory" value="$PROJECT_DIR$" />
+    <method v="2" />
+  </configuration>
+</component>
