@@ -48,11 +48,25 @@ void main() {
       command.addSubcommand(DemoCommand());
       expect(command.subcommands.isEmpty, false);
       expect(command.usage, subcommandUsage);
+      expect(command.argParser.options.length, 8);
       expect(command.invocation, 'demo cmd <subcommand> [arguments]');
       expect(command.logLevel, LogLevel.info);
       expect(command.logsDirectory, null);
       expect(command.path, '.');
       expect(command.runner, runner);
+    });
+
+    test('test default arguments', () {
+      final TestCommand command = TestCommand();
+
+      expect(command.argParser.options.length, 5);
+      expect(command.argParser.options.keys, <String>[
+        'help',
+        'path',
+        'level',
+        'logdir',
+        'color',
+      ]);
     });
   });
 }

@@ -1,6 +1,9 @@
 // ignore_for_file: avoid_print
 
+import 'dart:io';
+
 import 'package:dart_cmder/dart_cmder.dart';
+import 'package:path/path.dart';
 
 enum Option {
   option1,
@@ -155,6 +158,8 @@ Usage: demo cmd [arguments]
 -l, --level           Define the level that will be used to filter log messages.
                       [none, verbose, debug, info (default), success, warning, error, fatal]
 -d, --logdir          If not null, then messages will be logged into the specified directory.
+-c, --[no-]color      If set to false, no colors will be printed in the console.
+                      (defaults to on)
 
 Run "demo help" to see global options.''';
 
@@ -172,8 +177,34 @@ Usage: demo cmd <subcommand> [arguments]
 -l, --level           Define the level that will be used to filter log messages.
                       [none, verbose, debug, info (default), success, warning, error, fatal]
 -d, --logdir          If not null, then messages will be logged into the specified directory.
+-c, --[no-]color      If set to false, no colors will be printed in the console.
+                      (defaults to on)
 
 Available subcommands:
   cmd   This is a demo command
 
 Run "demo help" to see global options.''';
+
+class TestCommand extends BaseCommand {
+  @override
+  String get description => 'This is a test command';
+
+  @override
+  Future<void> execute() async {}
+
+  @override
+  String get name => 'test';
+}
+
+void clearLogs() {
+  final Directory logDirectory = Directory(join(
+    Directory.current.path,
+    'test',
+    'interface',
+    'logs',
+  ));
+
+  if (logDirectory.existsSync()) {
+    logDirectory.deleteSync(recursive: true);
+  }
+}

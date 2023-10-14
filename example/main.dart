@@ -4,8 +4,8 @@ import 'package:trace/trace.dart';
 
 import 'demo_runner.dart';
 
-void main() {
-  final List<String> args = <String>[
+void main(final List<String> args) {
+  DemoRunner().run(<String>[
     'cmd',
     '--no-enabled',
     '-m',
@@ -16,7 +16,6 @@ void main() {
     LogLevel.verbose.name,
     '-d',
     '${Directory.current.path}/logs',
-  ];
-
-  DemoRunner().run(args);
+    ...args,
+  ]);
 }
