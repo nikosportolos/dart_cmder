@@ -107,8 +107,10 @@ abstract class BaseCommand extends Command<void> {
       <Logger>[
         ConsoleLogger(
           level: logLevel,
+          ioSink: cliRunner.sink,
           theme: cliRunner.loggerTheme,
           filter: logFilter,
+          allowAnsi: allowColors,
         ),
         if (logsDirectory != null)
           FileLogger(
