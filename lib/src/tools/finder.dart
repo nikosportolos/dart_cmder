@@ -17,6 +17,7 @@ class Finder {
   static const String pubspecYaml = 'pubspec.yaml';
   static const String pubspecLock = 'pubspec.lock';
 
+  /// Returns the Directory of the given path.
   static Directory findDirectoryFromPath(final String? path) {
     if (path == null || path.trim().isEmpty) {
       return Directory.current;
@@ -53,6 +54,8 @@ class Finder {
     ).toList(growable: false);
   }
 
+  /// Returns a list of the absolute file paths
+  /// found in the given [path].
   static List<String> findAbsoluteFilePaths({
     final RegExp? matchingPattern,
     required final String path,

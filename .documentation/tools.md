@@ -65,9 +65,85 @@ void main() {
 }
 ```
 
-
 <a href="https://raw.githubusercontent.com/nikosportolos/dart_cmder/main/assets/images/finder-grid-example.webp" target="_blank">
   <img src="https://raw.githubusercontent.com/nikosportolos/dart_cmder/main/assets/images/finder-grid-example.webp" width="400" alt="finder-grid-example">
 </a>
 
 
+#### Available methods
+
+- **findDirectoryFromPath**
+
+  Returns the Directory of the given path.
+
+  ```dart
+  static Directory findDirectoryFromPath(final String? path)
+  ```
+
+- **findFiles**
+  
+  Returns a list of files found in the given path.
+
+  ```dart
+  static List<File> findFiles({
+    final RegExp? matchingPattern,
+    required final String path,
+    final bool? recursive,
+  }) 
+  ```
+
+- **findArbFiles**
+
+  Returns a list of `.arb` files found in the given path.
+  
+  ```dart
+  static List<File> findArbFiles({
+    required final String path,
+    final bool? recursive,
+  })
+  ```
+
+- **findDartFiles**
+
+  Returns a list of `.dart` files found in the given path.
+
+  ```dart
+  static List<File> findDartFiles({
+    required final String path,
+    final bool? recursive,
+  })
+  ```
+  
+- **findYamlFiles**
+
+  Returns a list of `.yaml` files found in the given path.
+
+  ```dart
+  static List<File> findYamlFiles({
+    required final String path,
+    final bool? recursive,
+  })
+  ```
+  
+- **findPubspecYamlFiles**
+
+  Returns a list of `pubspec.yaml` files found in the given path.
+
+  ```dart
+  static List<File> findPubspecYamlFiles({
+    required final String path,
+    final bool? recursive,
+  })
+  ```
+  
+- **findPubspecLockFiles**
+
+  Returns a list of `pubspec.lock` files found in the given path.
+
+  ```dart
+  static List<File> findPubspecLockFiles({
+    required final String path,
+    final bool? recursive,
+  })
+  ```
+  

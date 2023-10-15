@@ -39,3 +39,23 @@ fields in the BaseRunner's constructor.
 
 Check the [example](https://github.com/nikosportolos/dart_cmder/tree/main/example/logo)
 folder for more samples.
+
+
+#### Usage
+
+**Create a runner**
+
+```dart
+class DemoRunner extends BaseRunner {
+  DemoRunner({
+    final List<BaseCommand> commands = const <BaseCommand>[],
+  }) : super(
+          executableName: 'demo',
+          description: 'This is a demo CLI app written in Dart using dart_cmder.',
+          $commands: <BaseCommand>[
+            DemoCommand(),
+            ...commands,
+          ],
+        );
+}
+```
