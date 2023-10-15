@@ -1,5 +1,12 @@
 > This is a pre-release version of [dart_cmder](https://pub.dev/packages/dart_cmder), so using it in a production environment is not recommended yet.
 
+## v0.0.4-prerelease
+
+### Bug fixes
+
+- Color argument hotfix ([#27](https://github.com/nikosportolos/dart_cmder/issues/27))
+
+
 ## v0.0.3-prerelease
 
 ### Changes/Improvements
