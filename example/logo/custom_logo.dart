@@ -27,9 +27,15 @@ class RunnerWithCustomLogo extends BaseRunner {
             ),
             subtitle: AnsiText(
               subtitle,
+              foregroundColor: AnsiColor.purple3,
               alignment: AnsiTextAlignment.center,
               style: const AnsiTextStyle(italic: true),
               padding: AnsiPadding.horizontal(3) + AnsiPadding.only(bottom: 1),
+            ),
+            border: const AnsiBorder(
+              color: AnsiColor.purple,
+              type: AnsiBorderType.outside,
+              style: AnsiBorderStyle.double,
             ),
           ),
         );
