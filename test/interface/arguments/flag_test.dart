@@ -6,7 +6,7 @@ void main() {
   group('FlagArgument', () {
     test('null ArgResults', () {
       const FlagArgument argument = FlagArgument(name: 'flag');
-      argument.add(ArgParser());
+      argument.addTo(ArgParser());
       expect(argument.parse(null), false);
     });
 
@@ -45,7 +45,7 @@ void _testFlagArgument({
   for (final MapEntry<String, bool?> mock in mocks.entries) {
     test('${mock.key} --> ${mock.value}', () {
       final ArgParser parser = ArgParser();
-      argument.add(parser);
+      argument.addTo(parser);
       final ArgResults results = parser.parse(<String>[mock.key]);
       expect(argument.parse(results), mock.value);
     });

@@ -22,7 +22,7 @@ abstract class BaseArgument<T> {
 
   /// This method adds an [Option](https://pub.dev/documentation/args/latest/args/Option-class.html)
   /// with the given properties to the options that have been defined for this parser.
-  void add(final ArgParser argParser);
+  void addTo(final ArgParser argParser);
 
   /// This method is used to parse the given [ArgResults] into a [BaseArgument].
   dynamic parse(final ArgResults? argResults);

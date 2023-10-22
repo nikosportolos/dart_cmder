@@ -9,7 +9,7 @@ void main() {
     test('null ArgResults', () {
       const MultiOptionArgument<String?> argument =
           MultiOptionArgument<String?>(name: 'option');
-      argument.add(ArgParser());
+      argument.addTo(ArgParser());
       expect(argument.parse(null), <String?>[]);
     });
 

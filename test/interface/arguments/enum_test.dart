@@ -10,7 +10,7 @@ void main() {
       test('no default value', () {
         const OptionArgument<Mode?> argument =
             EnumArgument<Mode?>(name: 'mode');
-        argument.add(ArgParser());
+        argument.addTo(ArgParser());
         expect(argument.parse(null), null);
       });
 
@@ -19,7 +19,7 @@ void main() {
           name: 'mode',
           defaultsTo: Mode.release,
         );
-        argument.add(ArgParser());
+        argument.addTo(ArgParser());
         expect(argument.parse(null), Mode.release);
       });
     });
