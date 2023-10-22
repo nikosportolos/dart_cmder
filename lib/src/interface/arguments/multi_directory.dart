@@ -23,7 +23,7 @@ class MultiDirectoryArgument extends MultiOptionArgument<Directory> {
   /// This adds an [Option](https://pub.dev/documentation/args/latest/args/Option-class.html)
   /// with the given properties to the options that have been defined for this parser.
   @override
-  void add(final ArgParser argParser) {
+  void addTo(final ArgParser argParser) {
     argParser.addMultiOption(
       name,
       abbr: abbr,

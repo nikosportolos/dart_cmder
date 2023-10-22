@@ -12,7 +12,7 @@ void main() {
       test('no default value', () {
         const MultiDirectoryArgument argument =
             MultiDirectoryArgument(name: 'dir');
-        argument.add(ArgParser());
+        argument.addTo(ArgParser());
         expect(argument.parse(null), <Directory>[]);
       });
 
@@ -21,7 +21,7 @@ void main() {
           name: 'dir',
           defaultsTo: <Directory>[testDirectory],
         );
-        argument.add(ArgParser());
+        argument.addTo(ArgParser());
         expect(argument.parse(null).length, 1);
         testDirectories(testDirectory, argument.parse(null).first);
       });
@@ -32,7 +32,7 @@ void main() {
           defaultsTo: <Directory>[testDirectory],
           allowedValues: <Directory>[rootDirectory, demoDirectory],
         );
-        argument.add(ArgParser());
+        argument.addTo(ArgParser());
         expect(argument.parse(null).length, 1);
         testDirectories(testDirectory, argument.parse(null).first);
       });
@@ -42,7 +42,7 @@ void main() {
           name: 'dir',
           allowedValues: <Directory>[rootDirectory, demoDirectory],
         );
-        argument.add(ArgParser());
+        argument.addTo(ArgParser());
         expect(argument.parse(null).length, 0);
       });
     });

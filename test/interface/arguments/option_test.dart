@@ -11,7 +11,7 @@ void main() {
         test('no default value', () {
           const OptionArgument<String?> argument =
               OptionArgument<String?>(name: 'option');
-          argument.add(ArgParser());
+          argument.addTo(ArgParser());
           expect(argument.parse(null), null);
         });
         test('with default value', () {
@@ -19,7 +19,7 @@ void main() {
             name: 'option',
             defaultsTo: 'test',
           );
-          argument.add(ArgParser());
+          argument.addTo(ArgParser());
           expect(argument.parse(null), 'test');
         });
 
@@ -29,7 +29,7 @@ void main() {
             defaultsTo: 'test',
             allowedValues: <String?>['test', 'demo'],
           );
-          argument.add(ArgParser());
+          argument.addTo(ArgParser());
           expect(argument.parse(null), testDirectory.path);
         });
 
@@ -38,7 +38,7 @@ void main() {
             name: 'option',
             allowedValues: <String?>['test', 'demo'],
           );
-          argument.add(ArgParser());
+          argument.addTo(ArgParser());
           expect(argument.parse(null), null);
         });
       });

@@ -21,7 +21,7 @@ void testOptionArgument<T>({
   for (final MapEntry<Iterable<String>, T> mock in mocks.entries) {
     test('${mock.key} --> ${mock.value}', () {
       final ArgParser parser = ArgParser();
-      argument.add(parser);
+      argument.addTo(parser);
       final ArgResults results = parser.parse(mock.key);
       expect(argument.parse(results), mock.value);
     });
@@ -35,7 +35,7 @@ void testDirectoryArgument({
   for (final MapEntry<Iterable<String>, Directory?> mock in mocks.entries) {
     test('${mock.key} --> ${mock.value}', () {
       final ArgParser parser = ArgParser();
-      argument.add(parser);
+      argument.addTo(parser);
       final ArgResults results = parser.parse(mock.key);
       expect(argument.parse(results)?.absolute.path, mock.value?.absolute.path);
     });
@@ -49,7 +49,7 @@ void testFileArgument({
   for (final MapEntry<Iterable<String>, File?> mock in mocks.entries) {
     test('${mock.key} --> ${mock.value}', () {
       final ArgParser parser = ArgParser();
-      argument.add(parser);
+      argument.addTo(parser);
       final ArgResults results = parser.parse(mock.key);
       expect(argument.parse(results)?.absolute.path, mock.value?.absolute.path);
     });
@@ -66,7 +66,7 @@ void testMultiOptionArgument<T>({
       in mocks.entries) {
     test('${mock.key} --> ${mock.value}', () {
       final ArgParser parser = ArgParser();
-      argument.add(parser);
+      argument.addTo(parser);
       final ArgResults results = parser.parse(mock.key);
       expect(argument.parse(results), mock.value);
     });
@@ -80,7 +80,7 @@ void testMultiFileArgument({
   for (final MapEntry<Iterable<String>, List<File>?> mock in mocks.entries) {
     test('${mock.key} --> ${mock.value}', () {
       final ArgParser parser = ArgParser();
-      argument.add(parser);
+      argument.addTo(parser);
       final ArgResults results = parser.parse(mock.key);
       final List<File> actual = argument.parse(results);
       expect(actual.length, mock.value?.length);
@@ -100,7 +100,7 @@ void testMultiDirectoryArgument({
       in mocks.entries) {
     test('${mock.key} --> ${mock.value}', () {
       final ArgParser parser = ArgParser();
-      argument.add(parser);
+      argument.addTo(parser);
       final ArgResults results = parser.parse(mock.key);
       final List<Directory> actual = argument.parse(results);
       expect(actual.length, mock.value?.length);

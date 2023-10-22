@@ -11,7 +11,7 @@ void main() {
     group('null ArgResults', () {
       test('no default value', () {
         const DirectoryArgument argument = DirectoryArgument(name: 'dir');
-        argument.add(ArgParser());
+        argument.addTo(ArgParser());
         expect(argument.parse(null), null);
       });
 
@@ -20,7 +20,7 @@ void main() {
           name: 'dir',
           defaultsTo: testDirectory,
         );
-        argument.add(ArgParser());
+        argument.addTo(ArgParser());
         expect(argument.parse(null)?.path, testDirectory.path);
       });
 
@@ -30,7 +30,7 @@ void main() {
           defaultsTo: testDirectory,
           allowedValues: <Directory>[rootDirectory, demoDirectory],
         );
-        argument.add(ArgParser());
+        argument.addTo(ArgParser());
         expect(argument.parse(null)?.path, testDirectory.path);
       });
 
@@ -39,7 +39,7 @@ void main() {
           name: 'dir',
           allowedValues: <Directory>[rootDirectory, demoDirectory],
         );
-        argument.add(ArgParser());
+        argument.addTo(ArgParser());
         expect(argument.parse(null)?.path, null);
       });
     });

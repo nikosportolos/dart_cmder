@@ -10,7 +10,7 @@ void main() {
       test('no default value', () {
         const MultiEnumArgument<Mode> argument =
             MultiEnumArgument<Mode>(name: 'mode');
-        argument.add(ArgParser());
+        argument.addTo(ArgParser());
         expect(argument.parse(null), <Mode>[]);
       });
 
@@ -19,7 +19,7 @@ void main() {
           name: 'mode',
           defaultsTo: <Mode>[Mode.release],
         );
-        argument.add(ArgParser());
+        argument.addTo(ArgParser());
         final List<Mode> actual = argument.parse(null);
         expect(actual.length, 1);
         expect(Mode.release, actual.first);
@@ -31,7 +31,7 @@ void main() {
           defaultsTo: <Mode>[Mode.release],
           allowedValues: <Mode>[Mode.release, Mode.stage],
         );
-        argument.add(ArgParser());
+        argument.addTo(ArgParser());
         final List<Mode> actual = argument.parse(null);
         expect(actual.length, 1);
         expect(Mode.release, actual.first);
@@ -42,7 +42,7 @@ void main() {
           name: 'mode',
           allowedValues: <Mode>[Mode.release, Mode.stage],
         );
-        argument.add(ArgParser());
+        argument.addTo(ArgParser());
         expect(argument.parse(null).length, 0);
       });
     });

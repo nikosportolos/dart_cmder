@@ -11,7 +11,7 @@ void main() {
     group('null ArgResults', () {
       test('no default value', () {
         const MultiFileArgument argument = MultiFileArgument(name: 'file');
-        argument.add(ArgParser());
+        argument.addTo(ArgParser());
         expect(argument.parse(null), <File>[]);
       });
 
@@ -20,7 +20,7 @@ void main() {
           name: 'file',
           defaultsTo: <File>[testFile],
         );
-        argument.add(ArgParser());
+        argument.addTo(ArgParser());
         expect(argument.parse(null).length, 1);
         testFiles(testFile, argument.parse(null).first);
       });
@@ -31,7 +31,7 @@ void main() {
           defaultsTo: <File>[testFile],
           allowedValues: <File>[rootFile, demoFile],
         );
-        argument.add(ArgParser());
+        argument.addTo(ArgParser());
         expect(argument.parse(null).length, 1);
         testFiles(testFile, argument.parse(null).first);
       });
@@ -41,7 +41,7 @@ void main() {
           name: 'file',
           allowedValues: <File>[rootFile, demoFile],
         );
-        argument.add(ArgParser());
+        argument.addTo(ArgParser());
         expect(argument.parse(null).length, 0);
       });
     });
