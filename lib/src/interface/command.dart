@@ -137,7 +137,7 @@ abstract class BaseCommand extends Command<void> {
       await execute();
       hasRun = true;
     } catch (e, st) {
-      await exitWithError(e, st);
+      await exitWithException(e, st);
     }
 
     // Ensure that dispose runs always
@@ -145,7 +145,7 @@ abstract class BaseCommand extends Command<void> {
       await dispose();
       await exitWithCode(0);
     } catch (e, st) {
-      await exitWithError(e, st);
+      await exitWithException(e, st);
     }
   }
 
@@ -185,7 +185,16 @@ abstract class BaseCommand extends Command<void> {
   }
 
   /// Terminates the CLI app with errors.
-  Future<void> exitWithError(final Object error, [final StackTrace? st]) async {
+  Future<void> exitWithError(final Object error) async {
+    hasErrors = true;
+    await _terminate(error: error, showStacktrace: false);
+  }
+
+  /// Terminates the CLI app with exception.
+  Future<void> exitWithException(
+    final Object error, [
+    final StackTrace? st,
+  ]) async {
     hasErrors = true;
     await _terminate(error: error, stacktrace: st);
   }
@@ -194,17 +203,40 @@ abstract class BaseCommand extends Command<void> {
     final int? code,
     final Object? error,
     final StackTrace? stacktrace,
+    final bool showStacktrace = true,
   }) async {
     _stopwatch.stop();
 
+    String removeLastMatch(final String input) {
+      final RegExp regex = RegExp(r'<subcommand>|\[arguments\]');
+      final Iterable<Match> matches = regex.allMatches(input);
+
+      if (matches.isNotEmpty) {
+        final Match lastMatch = matches.last;
+        return input.substring(0, lastMatch.start) +
+            input.substring(lastMatch.end);
+      } else {
+        return input;
+      }
+    }
+
+    final String invocationMsg = removeLastMatch(invocation).trim().bold();
+
     if (hasErrors) {
-      Trace.error('${runner?.executableName.bold()} terminated with error:',
-          error, stacktrace);
-      Trace.error('❌ finished with errors in ${_stopwatch.elapsed}');
+      if (!showStacktrace) {
+        Trace.error('Terminated with error');
+        Trace.error(error);
+      } else {
+        Trace.error('Terminated with exception', error, stacktrace);
+      }
+
+      Trace.verbose(
+          '❌ $invocationMsg finished with errors in ${_stopwatch.elapsed}');
       await _exit(code ?? 1);
     }
 
-    Trace.info('✔ ${invocation.bold()} finished in ${_stopwatch.elapsed}');
+    Trace.verbose(
+        '${'✔'.green()} $invocationMsg finished in ${_stopwatch.elapsed}');
     await _exit(code ?? 0);
   }
 
