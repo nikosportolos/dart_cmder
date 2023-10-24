@@ -11,7 +11,7 @@ environment:
   sdk: '>=3.1.0 < 4.0.0'
 
 dependencies:
-  ansix: ^0.3.0
+  ansix: ^0.3.1
   args: ^2.4.2
   meta: ^1.11.0
   path: ^1.8.3
