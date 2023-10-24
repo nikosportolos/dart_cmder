@@ -1,5 +1,24 @@
 > This is a pre-release version of [dart_cmder](https://pub.dev/packages/dart_cmder), so using it in a production environment is not recommended yet.
 
+## v0.0.5-prerelease
+
+### Changes/Improvements
+
+- BaseCommand: Rename method add to addTo ([#31](https://github.com/nikosportolos/dart_cmder/issues/31))
+- Don't print stacktrace on exitWithError ([#33](https://github.com/nikosportolos/dart_cmder/issues/33))
+
+### Dependencies
+
+- Bump lints from 2.1.1 to 3.0.0 ([#30](https://github.com/nikosportolos/dart_cmder/pull/30))
+- Bump ansix from 0.3.0 to 0.3.1 ([#37](https://github.com/nikosportolos/dart_cmder/pull/37))
+- Bump trace from 0.0.5-prerelease to 0.0.6-prerelease ([#39](https://github.com/nikosportolos/dart_cmder/issues/39))
+
+### CI/CD
+
+- Bump actions/checkout from 4.1.0 to 4.1.1 ([#35](https://github.com/nikosportolos/dart_cmder/pull/35))
+- Bump nikosportolos/dart_package from 0.2.0 to 0.2.1 ([#36](https://github.com/nikosportolos/dart_cmder/pull/36))
+
+
 ## v0.0.4-prerelease
 
 ### Bug fixes
