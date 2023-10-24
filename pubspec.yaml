@@ -15,7 +15,7 @@ dependencies:
   args: ^2.4.2
   meta: ^1.11.0
   path: ^1.8.3
-  trace: ^0.0.5-prerelease
+  trace: ^0.0.6-prerelease
 
 dev_dependencies:
   lints: ^3.0.0
