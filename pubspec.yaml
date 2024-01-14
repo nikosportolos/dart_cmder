@@ -14,7 +14,7 @@ dependencies:
   ansix: ^0.3.1
   args: ^2.4.2
   meta: ^1.11.0
-  path: ^1.8.3
+  path: ^1.9.0
   trace: ^0.0.6-prerelease
 
 dev_dependencies:
