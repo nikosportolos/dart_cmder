@@ -227,7 +227,11 @@ abstract class BaseCommand extends Command<void> {
         Trace.error('Terminated with error');
         Trace.error(error);
       } else {
-        Trace.error('Terminated with exception', error, stacktrace);
+        Trace.error(
+          'Terminated with exception',
+          error: error,
+          stackTrace: stacktrace,
+        );
       }
 
       Trace.verbose(
