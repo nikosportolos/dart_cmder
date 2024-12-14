@@ -1,5 +1,10 @@
 > This is a pre-release version of [dart_cmder](https://pub.dev/packages/dart_cmder), so using it in a production environment is not recommended yet.
 
+## v0.0.6-prerelease
+
+- Bump minimum Dart SDK to 3.5.0 ([#63](https://github.com/nikosportolos/dart_cmder/pull/63))
+- Updated dependencies
+
 ## v0.0.5-prerelease
 
 ### Changes/Improvements

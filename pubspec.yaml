@@ -1,6 +1,6 @@
 name: dart_cmder
 description: This Dart package offers a streamlined and intuitive interface for building powerful Command Line Interface (CLI) applications.
-version: 0.0.5-prerelease
+version: 0.0.6-prerelease
 
 homepage: https://github.com/nikosportolos/dart_cmder
 repository: https://github.com/nikosportolos/dart_cmder
