@@ -12,7 +12,7 @@ environment:
 
 dependencies:
   ansix: ^0.3.4
-  args: ^2.4.2
+  args: ^2.6.0
   meta: ^1.12.0
   path: ^1.9.0
   trace: ^0.0.7-prerelease
